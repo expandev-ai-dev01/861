@@ -5,6 +5,7 @@ import { LoadingSpinner } from '@/core/components/LoadingSpinner';
 import { ErrorBoundary } from '@/core/components/ErrorBoundary';
 
 const WelcomePage = lazy(() => import('@/pages/Welcome'));
+const TaskCreatePage = lazy(() => import('@/pages/TaskCreate'));
 const NotFoundPage = lazy(() => import('@/pages/NotFound'));
 
 /**
@@ -30,6 +31,15 @@ export const AppRouter = () => {
             element={
               <Suspense fallback={<LoadingSpinner />}>
                 <WelcomePage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="tasks/create"
+            element={
+              <Suspense fallback={<LoadingSpinner />}>
+                <TaskCreatePage />
               </Suspense>
             }
           />

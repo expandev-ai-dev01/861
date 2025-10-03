@@ -24,9 +24,11 @@ export const WelcomePage = () => {
           Organize your tasks efficiently and boost your productivity
         </p>
         <div className="flex justify-center gap-4">
-          <Button size="lg" variant="primary">
-            Get Started
-          </Button>
+          <Link to="/tasks/create">
+            <Button size="lg" variant="primary">
+              Create New Task
+            </Button>
+          </Link>
           <Button size="lg" variant="outline">
             Learn More
           </Button>
@@ -53,8 +55,7 @@ export const WelcomePage = () => {
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">Create Tasks</h3>
             <p className="text-gray-600">
-              Easily create and organize your tasks with title, description, due date, and priority
-              levels.
+              Easily create and organize your tasks with title and description.
             </p>
           </div>
         </Card>
@@ -89,9 +90,11 @@ export const WelcomePage = () => {
           <div className="p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Ready to get organized?</h2>
             <p className="text-gray-600 mb-6">Start managing your tasks efficiently today.</p>
-            <Button size="lg" variant="primary">
-              Start Now
-            </Button>
+            <Link to="/tasks/create">
+              <Button size="lg" variant="primary">
+                Create Your First Task
+              </Button>
+            </Link>
           </div>
         </Card>
       </div>
