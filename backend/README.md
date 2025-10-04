@@ -1,15 +1,14 @@
-# TODO List Backend API
+# Sistema de TO DO List - Backend API
 
 ## Description
-Backend REST API for TODO List system built with Node.js, Express, TypeScript, and SQL Server.
+Backend REST API for TO DO List system built with Node.js, Express, and TypeScript.
 
 ## Technology Stack
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Language**: TypeScript
-- **Database**: Microsoft SQL Server
-- **Validation**: Zod
-- **Security**: Helmet, CORS, Bcrypt
+- **Runtime**: Node.js 20.x LTS
+- **Framework**: Express 5.1.0
+- **Language**: TypeScript 5.9.3
+- **Validation**: Zod 4.1.11
+- **Security**: Helmet 8.1.0, CORS 2.8.5
 
 ## Project Structure
 ```
@@ -25,104 +24,124 @@ src/
 ├── utils/                  # Utility functions
 ├── constants/              # Application constants
 ├── instances/              # Service instances
-├── config/                 # Configuration
 └── server.ts               # Application entry point
 ```
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js (v18 or higher)
-- SQL Server
+- Node.js 20.x or higher
 - npm or yarn
 
 ### Installation
-
-1. Clone the repository
-```bash
-git clone <repository-url>
-cd todolist-backend
-```
-
-2. Install dependencies
 ```bash
 npm install
 ```
 
-3. Configure environment variables
-```bash
-cp .env.example .env
-# Edit .env with your configuration
-```
+### Configuration
+1. Copy `.env.example` to `.env`
+2. Update environment variables:
+   - Database connection settings
+   - CORS origins (CRITICAL for production)
+   - Security settings
 
-4. Start development server
+### Development
 ```bash
 npm run dev
 ```
 
-## Available Scripts
+### Build
+```bash
+npm run build
+```
 
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Build for production
-- `npm start` - Start production server
-- `npm test` - Run tests
-- `npm run test:watch` - Run tests in watch mode
-- `npm run lint` - Run ESLint
-- `npm run lint:fix` - Fix ESLint errors
+### Production
+```bash
+npm start
+```
 
-## API Documentation
-
-### Base URL
-- Development: `http://localhost:3000/api/v1`
-- Production: `https://api.yourdomain.com/api/v1`
+## API Endpoints
 
 ### Health Check
-```
-GET /health
-```
+- `GET /health` - Server health status
 
 ### API Versioning
-The API uses URL path versioning:
-- `/api/v1/external/*` - Public endpoints
-- `/api/v1/internal/*` - Authenticated endpoints
+All API endpoints are versioned:
+- Base URL: `/api/v1`
+- External (public): `/api/v1/external/...`
+- Internal (authenticated): `/api/v1/internal/...`
 
-## Environment Variables
+## CORS Configuration
 
-See `.env.example` for all available configuration options.
+### Development
+Default localhost ports are automatically allowed:
+- http://localhost:3000
+- http://localhost:3001
+- http://localhost:5173
 
-Key variables:
-- `NODE_ENV` - Environment (development/production)
-- `PORT` - Server port (default: 3000)
-- `DB_HOST` - Database host
-- `DB_PORT` - Database port
-- `DB_USER` - Database user
-- `DB_PASSWORD` - Database password
-- `DB_NAME` - Database name
+### Production
+⚠️ **CRITICAL**: Set `CORS_ORIGINS` environment variable with your frontend URL:
+```bash
+CORS_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
+```
 
-## Security
-
-- Helmet for security headers
-- CORS configuration
-- Request validation with Zod
-- Multi-tenancy support
-- Account-based data isolation
+### Azure Deployment
+For Azure App Service deployments, configure in Application Settings:
+```bash
+CORS_ORIGINS=https://app-yourapp-web-dev.azurewebsites.net,https://app-yourapp-web-prod.azurewebsites.net
+```
 
 ## Testing
+```bash
+# Run tests
+npm test
 
-Tests are colocated with source files:
-- Unit tests: `*.test.ts`
-- Integration tests: `*Integration.ts`
+# Watch mode
+npm run test:watch
 
-Shared test utilities are in `src/tests/`
+# Coverage
+npm run test:coverage
+```
+
+## Features
+Feature implementations will be added to this backend foundation:
+- Task management (Create, List, Update, Delete)
+- User authentication and authorization
+- Data validation and error handling
+
+## Security
+- Helmet.js for security headers
+- CORS configuration for cross-origin requests
+- Input validation with Zod
+- Multi-tenancy support with account isolation
+
+## Error Handling
+Standardized error responses:
+```json
+{
+  "success": false,
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Error description",
+    "details": {}
+  },
+  "timestamp": "2024-01-01T00:00:00.000Z"
+}
+```
+
+## Success Response Format
+```json
+{
+  "success": true,
+  "data": {},
+  "metadata": {
+    "timestamp": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
 
 ## Contributing
-
-1. Follow the established code structure
-2. Use TypeScript strict mode
-3. Write tests for new features
-4. Follow ESLint rules
-5. Document with TSDoc comments
+Follow the established coding standards and patterns defined in the architecture documentation.
 
 ## License
-
-ISC
+Private - All rights reserved

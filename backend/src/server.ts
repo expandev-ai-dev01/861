@@ -3,16 +3,35 @@ import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 import morgan from 'morgan';
-import { config } from './config';
+import dotenv from 'dotenv';
+import apiRoutes from './routes';
 import { errorMiddleware } from './middleware/error';
 import { notFoundMiddleware } from './middleware/notFound';
-import apiRoutes from './routes';
+
+dotenv.config();
 
 const app: Application = express();
 
 // Security middleware
 app.use(helmet());
-app.use(cors(config.api.cors));
+
+// CORS Configuration
+const corsOrigins = process.env.CORS_ORIGINS
+  ? process.env.CORS_ORIGINS.split(',').map((origin) => origin.trim())
+  : process.env.NODE_ENV === 'production'
+  ? ['https://yourdomain.com']
+  : ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173'];
+
+app.use(
+  cors({
+    origin: corsOrigins,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    exposedHeaders: ['X-Total-Count', 'X-Page-Count'],
+    maxAge: 86400,
+  })
+);
 
 // Request processing middleware
 app.use(compression());
@@ -22,7 +41,7 @@ app.use(express.urlencoded({ extended: true }));
 // Logging
 app.use(morgan('combined'));
 
-// Health check (no versioning)
+// Health check
 app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'healthy', timestamp: new Date().toISOString() });
 });
@@ -46,8 +65,10 @@ process.on('SIGTERM', () => {
 });
 
 // Server startup
-const server = app.listen(config.api.port, () => {
-  console.log(`Server running on port ${config.api.port} in ${process.env.NODE_ENV} mode`);
+const PORT = parseInt(process.env.PORT || '3000');
+const server = app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
+  console.log(`CORS enabled for origins: ${corsOrigins.join(', ')}`);
 });
 
 export default server;
