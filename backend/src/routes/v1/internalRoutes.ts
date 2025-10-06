@@ -10,14 +10,15 @@
  * All routes require authentication middleware
  *
  * @routes
- * Feature-specific routes will be added here
+ * - /task: Task management routes
  */
 
 import { Router } from 'express';
+import taskRoutes from './taskRoutes';
 
 const router = Router();
 
-// Feature routes will be added here
-// Example: router.use('/task', taskRoutes);
+// Task routes
+router.use('/', taskRoutes);
 
 export default router;

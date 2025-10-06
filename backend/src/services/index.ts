@@ -7,5 +7,4 @@
  * @type services-exports
  */
 
-// Feature services will be exported here
-// Example: export * from './task';
+export * from './task';

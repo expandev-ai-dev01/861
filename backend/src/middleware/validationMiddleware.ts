@@ -11,11 +11,11 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
-import { z, ZodSchema } from 'zod';
+import { ZodSchema } from 'zod';
 import { createError } from './errorMiddleware';
 
 export const validateBody = (schema: ZodSchema) => {
-  return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  return async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
     try {
       req.body = await schema.parseAsync(req.body);
       next();
@@ -26,9 +26,9 @@ export const validateBody = (schema: ZodSchema) => {
 };
 
 export const validateParams = (schema: ZodSchema) => {
-  return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  return async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
     try {
-      req.params = await schema.parseAsync(req.params);
+      req.params = (await schema.parseAsync(req.params)) as any;
       next();
     } catch (error: any) {
       next(createError('Parameter validation failed', 400, 'VALIDATION_ERROR', error.errors));
@@ -37,9 +37,9 @@ export const validateParams = (schema: ZodSchema) => {
 };
 
 export const validateQuery = (schema: ZodSchema) => {
-  return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  return async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
     try {
-      req.query = await schema.parseAsync(req.query);
+      req.query = (await schema.parseAsync(req.query)) as any;
       next();
     } catch (error: any) {
       next(createError('Query validation failed', 400, 'VALIDATION_ERROR', error.errors));

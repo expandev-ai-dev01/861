@@ -1,6 +1,6 @@
 /**
  * @page HomePage
- * @summary Welcome page with application overview
+ * @summary Welcome page with application overview and quick actions
  * @domain core
  * @type landing-page
  * @category public
@@ -12,21 +12,52 @@
  * - Guards: none
  */
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/core/components/Button';
+import { useEffect, useState } from 'react';
 
 export const HomePage = () => {
+  const location = useLocation();
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (location.state?.message) {
+      setSuccessMessage(location.state.message);
+      // Clear message after 5 seconds
+      const timer = setTimeout(() => setSuccessMessage(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [location.state]);
+
   return (
     <div className="max-w-4xl mx-auto">
+      {/* Success Message */}
+      {successMessage && (
+        <div className="mb-6 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-md">
+          <div className="flex items-center">
+            <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <p className="text-sm font-medium">{successMessage}</p>
+          </div>
+        </div>
+      )}
+
       <div className="text-center py-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Welcome to TODO List App</h1>
         <p className="text-xl text-gray-600 mb-8">
           Organize your tasks efficiently and boost your productivity
         </p>
         <div className="flex justify-center gap-4">
-          <Button size="large">Get Started</Button>
+          <Link to="/tasks/create">
+            <Button size="large">+ Nova Tarefa</Button>
+          </Link>
           <Button variant="outline" size="large">
-            Learn More
+            Ver Tarefas
           </Button>
         </div>
       </div>
@@ -50,7 +81,7 @@ export const HomePage = () => {
           </div>
           <h3 className="text-lg font-semibold text-gray-900 mb-2">Create Tasks</h3>
           <p className="text-gray-600">
-            Easily create and organize your tasks with title, description, and priority
+            Easily create and organize your tasks with title and description
           </p>
         </div>
 
