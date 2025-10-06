@@ -1,3 +1,11 @@
-// Service exports will be added here by feature implementations
-// Example:
-// export * from './task';
+/**
+ * @summary
+ * Centralized services exports.
+ * Provides access to all business logic services.
+ *
+ * @module services
+ * @type services-exports
+ */
+
+// Feature services will be exported here
+// Example: export * from './task';

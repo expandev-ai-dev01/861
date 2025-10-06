@@ -1,12 +1,23 @@
+/**
+ * @summary
+ * Internal API routes configuration for authenticated endpoints.
+ * All routes require valid authentication.
+ *
+ * @module routes/v1/internalRoutes
+ * @type router-configuration
+ *
+ * @security
+ * All routes require authentication middleware
+ *
+ * @routes
+ * Feature-specific routes will be added here
+ */
+
 import { Router } from 'express';
 
 const router = Router();
 
-// Internal routes will be added here by feature implementations
-// Example structure:
-// import { authMiddleware } from '@/middleware/auth';
-// import * as taskController from '@/api/v1/internal/task/controller';
-// router.get('/task', authMiddleware, taskController.listHandler);
-// router.post('/task', authMiddleware, taskController.createHandler);
+// Feature routes will be added here
+// Example: router.use('/task', taskRoutes);
 
 export default router;
