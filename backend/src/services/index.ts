@@ -1,10 +1,10 @@
 /**
  * @summary
- * Centralized services exports.
- * Provides access to all business logic services.
+ * Central export point for all service modules.
+ * Provides organized access to business logic services.
  *
  * @module services
- * @type services-exports
+ * @type service-exports
  */
 
-export * from './task';
+// Service exports will be added here as features are implemented

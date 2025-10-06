@@ -1,12 +1,13 @@
 /**
  * @summary
- * Centralized middleware exports.
- * Provides access to all application middleware functions.
+ * Central export point for all middleware functions.
+ * Provides organized access to authentication, validation,
+ * error handling, and other middleware components.
  *
  * @module middleware
  * @type middleware-exports
  */
 
-export * from './errorMiddleware';
-export * from './validationMiddleware';
-export * from './authMiddleware';
+export * from './crud';
+export * from './error';
+export * from './validation';

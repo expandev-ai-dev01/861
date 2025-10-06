@@ -1,10 +1,10 @@
 /**
  * @summary
- * Centralized constants exports.
- * Provides access to all application constants.
+ * Central export point for application constants.
+ * Provides organized access to configuration values and enums.
  *
  * @module constants
  * @type constants-exports
  */
 
-export * from './http';
+// Constants exports will be added here as needed

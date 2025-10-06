@@ -7,18 +7,15 @@
  * @type router-configuration
  *
  * @security
- * All routes require authentication middleware
- *
- * @routes
- * - /task: Task management routes
+ * - Authentication middleware applied to all routes
+ * - Account-based data isolation enforced
  */
 
 import { Router } from 'express';
-import taskRoutes from './taskRoutes';
 
 const router = Router();
 
-// Task routes
-router.use('/', taskRoutes);
+// Internal routes will be added here as features are implemented
+// Example: Task management, user profile, settings
 
 export default router;

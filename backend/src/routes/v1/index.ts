@@ -1,6 +1,6 @@
 /**
  * @summary
- * V1 API router configuration.
+ * Version 1 API router configuration.
  * Separates external (public) and internal (authenticated) routes.
  *
  * @module routes/v1

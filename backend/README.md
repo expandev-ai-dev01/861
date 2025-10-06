@@ -4,88 +4,136 @@ Backend REST API for the TODO List system built with Node.js, Express, and TypeS
 
 ## Features
 
-- RESTful API architecture
+- RESTful API architecture with versioning support
 - TypeScript for type safety
 - Express.js framework
-- Zod for runtime validation
-- Multi-tenancy support
-- API versioning
-- Comprehensive error handling
+- Zod for request validation
 - Security middleware (Helmet, CORS)
-- Request compression
-- Logging with Morgan
-
-## Prerequisites
-
-- Node.js 20.x or higher
-- npm or yarn
-- SQL Server database
-
-## Installation
-
-```bash
-# Install dependencies
-npm install
-
-# Copy environment variables
-cp .env.example .env
-
-# Configure your .env file with appropriate values
-```
-
-## Development
-
-```bash
-# Run in development mode with hot reload
-npm run dev
-
-# Build for production
-npm run build
-
-# Run production build
-npm start
-```
-
-## Testing
-
-```bash
-# Run tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Generate coverage report
-npm run test:coverage
-```
-
-## API Structure
-
-The API follows a versioned structure:
-
-```
-/api/v1/external  - Public endpoints (authentication, public data)
-/api/v1/internal  - Authenticated endpoints (business features)
-```
+- Comprehensive error handling
+- Modular architecture
 
 ## Project Structure
 
 ```
 src/
-├── api/              # API controllers
-├── routes/           # Route definitions
-├── middleware/       # Express middleware
-├── services/         # Business logic
-├── utils/            # Utility functions
-├── constants/        # Application constants
-├── instances/        # Service instances
-├── types/            # TypeScript types
-└── server.ts         # Application entry point
+├── api/                    # API controllers
+│   └── v1/                 # API version 1
+│       ├── external/       # Public endpoints
+│       └── internal/       # Authenticated endpoints
+├── routes/                 # Route definitions
+│   └── v1/                 # Version 1 routes
+├── middleware/             # Express middleware
+├── services/               # Business logic
+├── utils/                  # Utility functions
+├── constants/              # Application constants
+├── instances/              # Service instances
+└── server.ts               # Application entry point
 ```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 20.x LTS or higher
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Copy `.env.example` to `.env` and configure:
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Update environment variables in `.env`
+
+### Development
+
+Run the development server:
+```bash
+npm run dev
+```
+
+The API will be available at `http://localhost:3000/api/v1`
+
+### Building
+
+Build for production:
+```bash
+npm run build
+```
+
+### Testing
+
+Run tests:
+```bash
+npm test
+```
+
+Run tests in watch mode:
+```bash
+npm run test:watch
+```
+
+Generate coverage report:
+```bash
+npm run test:coverage
+```
+
+## API Endpoints
+
+### Health Check
+- `GET /health` - Server health status
+
+### API Version 1
+
+Base URL: `/api/v1`
+
+#### External (Public)
+- Public endpoints will be added as features are implemented
+
+#### Internal (Authenticated)
+- Authenticated endpoints will be added as features are implemented
 
 ## Environment Variables
 
-See `.env.example` for required environment variables.
+| Variable | Description | Default |
+|----------|-------------|----------|
+| NODE_ENV | Environment mode | development |
+| PORT | Server port | 3000 |
+| API_VERSION | API version | v1 |
+| DB_HOST | Database host | localhost |
+| DB_PORT | Database port | 1433 |
+| DB_USER | Database user | sa |
+| DB_PASSWORD | Database password | - |
+| DB_NAME | Database name | todolist |
+| CORS_ORIGINS | Allowed CORS origins | - |
+
+## Architecture Patterns
+
+### Multi-Tenancy
+All functional operations include account-based data isolation through `idAccount` filtering.
+
+### Error Handling
+Standardized error responses with proper HTTP status codes and error messages.
+
+### Validation
+Zod schemas for type-safe request validation with descriptive error messages.
+
+### Security
+- Helmet for security headers
+- CORS configuration
+- Request size limits
+- Input validation
+
+## Contributing
+
+Follow the established coding standards and patterns documented in the architecture guidelines.
 
 ## License
 
