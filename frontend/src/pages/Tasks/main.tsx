@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import { Button } from '@/core/components/Button';
+import { TaskCreateModal } from '@/domain/task/components/TaskCreateModal';
+import type { Task } from '@/domain/task/types';
 
 /**
  * @page TasksPage
@@ -24,15 +27,22 @@ import { Button } from '@/core/components/Button';
  * - Caching: 5 minutes stale time
  */
 export const TasksPage = () => {
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  const handleTaskCreated = (task: Task) => {
+    console.log('Task created:', task);
+    // TODO: Refresh task list when task listing is implemented
+  };
+
   return (
     <div className="max-w-6xl mx-auto">
       {/* Page Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Tasks</h1>
-          <p className="text-gray-600 mt-1">Manage and organize your tasks efficiently</p>
+          <h1 className="text-3xl font-bold text-gray-900">Tarefas</h1>
+          <p className="text-gray-600 mt-1">Gerencie e organize suas tarefas de forma eficiente</p>
         </div>
-        <Button>Create New Task</Button>
+        <Button onClick={() => setIsCreateModalOpen(true)}>Nova Tarefa</Button>
       </div>
 
       {/* Filters and Search */}
@@ -41,22 +51,23 @@ export const TasksPage = () => {
           <div className="flex-1">
             <input
               type="text"
-              placeholder="Search tasks..."
+              placeholder="Buscar tarefas..."
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             />
           </div>
           <div className="flex gap-2">
             <select className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
-              <option value="">All Priorities</option>
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-              <option value="urgent">Urgent</option>
+              <option value="">Todas as Prioridades</option>
+              <option value="low">Baixa</option>
+              <option value="medium">Média</option>
+              <option value="high">Alta</option>
+              <option value="urgent">Urgente</option>
             </select>
             <select className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
-              <option value="">All Status</option>
-              <option value="pending">Pending</option>
-              <option value="completed">Completed</option>
+              <option value="">Todos os Status</option>
+              <option value="Pendente">Pendente</option>
+              <option value="Em Andamento">Em Andamento</option>
+              <option value="Concluída">Concluída</option>
             </select>
           </div>
         </div>
@@ -81,14 +92,21 @@ export const TasksPage = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No tasks yet</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhuma tarefa ainda</h3>
             <p className="text-gray-600 mb-6">
-              Create your first task to get started with organizing your work.
+              Crie sua primeira tarefa para começar a organizar seu trabalho.
             </p>
-            <Button>Create Your First Task</Button>
+            <Button onClick={() => setIsCreateModalOpen(true)}>Criar Primeira Tarefa</Button>
           </div>
         </div>
       </div>
+
+      {/* Task Create Modal */}
+      <TaskCreateModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSuccess={handleTaskCreated}
+      />
     </div>
   );
 };

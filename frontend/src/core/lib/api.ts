@@ -8,13 +8,13 @@ import axios, { AxiosInstance } from 'axios';
  */
 export const apiConfig = {
   // Base URL from environment variables (Vite uses VITE_ prefix)
-  baseUrl: import.meta.env.VITE_API_URL || 'http://localhost:3000',
+  baseUrl: (import.meta as any).env?.VITE_API_URL || 'http://localhost:3000',
 
   // API version
-  version: import.meta.env.VITE_API_VERSION || 'v1',
+  version: (import.meta as any).env?.VITE_API_VERSION || 'v1',
 
   // Timeout configuration
-  timeout: parseInt(import.meta.env.VITE_API_TIMEOUT || '30000'),
+  timeout: parseInt((import.meta as any).env?.VITE_API_TIMEOUT || '30000'),
 
   // Computed URLs for different contexts
   get externalUrl(): string {

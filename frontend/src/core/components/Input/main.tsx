@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { clsx } from 'clsx';
-import type { InputProps } from './types';
+import type { InputProps, InputSize } from './types';
 import { inputVariants } from './variants';
 
 /**
@@ -21,7 +21,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, size = 'medium', error = false, disabled = false, ...props }, ref) => {
     return (
       <input
-        className={clsx(inputVariants({ size, error, disabled }), className)}
+        className={clsx(inputVariants({ size: size as InputSize, error, disabled }), className)}
         ref={ref}
         disabled={disabled}
         {...props}

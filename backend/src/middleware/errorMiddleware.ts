@@ -24,9 +24,9 @@ export interface AppError extends Error {
 
 export const errorMiddleware = (
   error: AppError,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ): void => {
   const status = error.status || 500;
   const code = error.code || 'INTERNAL_SERVER_ERROR';
@@ -36,8 +36,8 @@ export const errorMiddleware = (
     code,
     message,
     status,
-    path: req.path,
-    method: req.method,
+    path: _req.path,
+    method: _req.method,
     timestamp: new Date().toISOString(),
     ...(process.env.NODE_ENV === 'development' && { stack: error.stack }),
   });

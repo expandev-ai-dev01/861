@@ -45,9 +45,9 @@ export const NotFoundPage = () => {
       </p>
 
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button asChild>
-          <Link to="/">Go Home</Link>
-        </Button>
+        <Link to="/">
+          <Button>Go Home</Button>
+        </Link>
         <Button variant="outline" onClick={() => window.history.back()}>
           Go Back
         </Button>

@@ -24,17 +24,19 @@ export const HomePage = () => {
     <div className="max-w-4xl mx-auto">
       {/* Hero Section */}
       <div className="text-center py-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Welcome to Todo List App</h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          Bem-vindo ao Sistema de TO-DO List
+        </h1>
         <p className="text-xl text-gray-600 mb-8">
-          Organize your tasks efficiently and boost your productivity
+          Organize suas tarefas de forma eficiente e aumente sua produtividade
         </p>
         <div className="flex justify-center gap-4">
-          <Button asChild>
-            <Link to="/tasks">View Tasks</Link>
-          </Button>
-          <Button variant="outline" asChild>
-            <Link to="/tasks">Create New Task</Link>
-          </Button>
+          <Link to="/tasks">
+            <Button>Ver Tarefas</Button>
+          </Link>
+          <Link to="/tasks">
+            <Button variant="outline">Criar Nova Tarefa</Button>
+          </Link>
         </div>
       </div>
 
@@ -56,9 +58,9 @@ export const HomePage = () => {
               />
             </svg>
           </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Create Tasks</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Criar Tarefas</h3>
           <p className="text-gray-600">
-            Easily create new tasks with title, description, due date, and priority levels.
+            Crie facilmente novas tarefas com título e descrição para organizar seu trabalho.
           </p>
         </div>
 
@@ -78,22 +80,23 @@ export const HomePage = () => {
               />
             </svg>
           </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">List Tasks</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Listar Tarefas</h3>
           <p className="text-gray-600">
-            View all your tasks in an organized list with filtering and sorting options.
+            Visualize todas as suas tarefas em uma lista organizada com opções de filtro e
+            ordenação.
           </p>
         </div>
       </div>
 
       {/* CTA Section */}
       <div className="bg-primary-50 rounded-lg p-8 text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Ready to get organized?</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Pronto para se organizar?</h2>
         <p className="text-gray-600 mb-6">
-          Start managing your tasks today and experience the power of organized productivity.
+          Comece a gerenciar suas tarefas hoje e experimente o poder da produtividade organizada.
         </p>
-        <Button size="large" asChild>
-          <Link to="/tasks">Get Started</Link>
-        </Button>
+        <Link to="/tasks">
+          <Button size="large">Começar Agora</Button>
+        </Link>
       </div>
     </div>
   );

@@ -60,7 +60,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 // Health check endpoint
-app.get('/health', (req: Request, res: Response) => {
+app.get('/health', (_req: Request, res: Response) => {
   res.json({
     status: 'healthy',
     timestamp: new Date().toISOString(),
@@ -72,20 +72,20 @@ app.get('/health', (req: Request, res: Response) => {
 app.use('/api', apiRoutes);
 
 // 404 handler
-app.use((req: Request, res: Response) => {
+app.use((_req: Request, res: Response) => {
   res.status(404).json({
     success: false,
     error: {
       code: 'NOT_FOUND',
       message: 'The requested resource was not found',
-      path: req.path,
+      path: _req.path,
     },
     timestamp: new Date().toISOString(),
   });
 });
 
 // Global error handler
-app.use((error: any, req: Request, res: Response, next: NextFunction) => {
+app.use((error: any, _req: Request, res: Response, _next: NextFunction) => {
   console.error('Error:', error);
 
   res.status(error.status || 500).json({
