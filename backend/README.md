@@ -8,25 +8,28 @@ Backend REST API for the TODO List system built with Node.js, Express, and TypeS
 - TypeScript for type safety
 - Express.js framework
 - Zod for request validation
-- Security middleware (Helmet, CORS)
 - Comprehensive error handling
-- Modular architecture
+- Security middleware (Helmet, CORS)
+- Request compression
+- Logging with Morgan
+- Test setup with Jest
 
 ## Project Structure
 
 ```
 src/
 ├── api/                    # API controllers
-│   └── v1/                 # API version 1
+│   └── v1/                 # API Version 1
 │       ├── external/       # Public endpoints
 │       └── internal/       # Authenticated endpoints
 ├── routes/                 # Route definitions
 │   └── v1/                 # Version 1 routes
 ├── middleware/             # Express middleware
-├── services/               # Business logic
+├── services/               # Business logic services
 ├── utils/                  # Utility functions
 ├── constants/              # Application constants
 ├── instances/              # Service instances
+├── tests/                  # Global test utilities
 └── server.ts               # Application entry point
 ```
 
@@ -41,64 +44,91 @@ src/
 
 1. Clone the repository
 2. Install dependencies:
-   ```bash
-   npm install
-   ```
 
-3. Copy `.env.example` to `.env` and configure:
-   ```bash
-   cp .env.example .env
-   ```
+```bash
+npm install
+```
 
-4. Update environment variables in `.env`
+3. Copy `.env.example` to `.env` and configure your environment variables:
+
+```bash
+cp .env.example .env
+```
+
+4. Update the `.env` file with your configuration
 
 ### Development
 
-Run the development server:
+Run the development server with hot reload:
+
 ```bash
 npm run dev
 ```
 
-The API will be available at `http://localhost:3000/api/v1`
+The API will be available at `http://localhost:3000`
 
 ### Building
 
-Build for production:
+Build the project for production:
+
 ```bash
 npm run build
+```
+
+### Running in Production
+
+Start the production server:
+
+```bash
+npm start
 ```
 
 ### Testing
 
 Run tests:
+
 ```bash
 npm test
 ```
 
 Run tests in watch mode:
+
 ```bash
 npm run test:watch
 ```
 
 Generate coverage report:
+
 ```bash
 npm run test:coverage
+```
+
+### Linting
+
+Run ESLint:
+
+```bash
+npm run lint
+```
+
+Fix linting issues:
+
+```bash
+npm run lint:fix
 ```
 
 ## API Endpoints
 
 ### Health Check
+
 - `GET /health` - Server health status
 
-### API Version 1
+### API Versioning
 
-Base URL: `/api/v1`
+All API endpoints are versioned:
 
-#### External (Public)
-- Public endpoints will be added as features are implemented
-
-#### Internal (Authenticated)
-- Authenticated endpoints will be added as features are implemented
+- External (public) endpoints: `/api/v1/external/...`
+- Internal (authenticated) endpoints: `/api/v1/internal/...`
 
 ## Environment Variables
 
@@ -114,26 +144,59 @@ Base URL: `/api/v1`
 | DB_NAME | Database name | todolist |
 | CORS_ORIGINS | Allowed CORS origins | - |
 
-## Architecture Patterns
+## Architecture
 
 ### Multi-Tenancy
-All functional operations include account-based data isolation through `idAccount` filtering.
+
+The system is designed with multi-tenancy support, ensuring data isolation between different accounts.
 
 ### Error Handling
-Standardized error responses with proper HTTP status codes and error messages.
 
-### Validation
-Zod schemas for type-safe request validation with descriptive error messages.
+Standardized error responses with appropriate HTTP status codes:
 
-### Security
-- Helmet for security headers
-- CORS configuration
-- Request size limits
-- Input validation
+- 400: Bad Request (validation errors)
+- 401: Unauthorized
+- 403: Forbidden
+- 404: Not Found
+- 500: Internal Server Error
+
+### Response Format
+
+All API responses follow a consistent format:
+
+**Success Response:**
+```json
+{
+  "success": true,
+  "data": {},
+  "metadata": {
+    "timestamp": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+**Error Response:**
+```json
+{
+  "success": false,
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Error message"
+  },
+  "timestamp": "2024-01-01T00:00:00.000Z"
+}
+```
 
 ## Contributing
 
-Follow the established coding standards and patterns documented in the architecture guidelines.
+Feature implementations should follow the established patterns:
+
+1. Create API controllers in `src/api/v1/internal/[feature]/`
+2. Define routes in `src/routes/v1/`
+3. Implement business logic in `src/services/[feature]/`
+4. Add validation schemas using Zod
+5. Include comprehensive tests
+6. Follow TypeScript and ESLint standards
 
 ## License
 

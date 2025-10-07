@@ -1,21 +1,24 @@
 /**
  * @summary
- * Internal API routes configuration for authenticated endpoints.
- * All routes require valid authentication.
+ * Internal (authenticated) API routes configuration.
+ * Handles authenticated endpoints that require valid user session.
  *
  * @module routes/v1/internalRoutes
  * @type router-configuration
+ * @version 1.0.0
  *
  * @security
- * - Authentication middleware applied to all routes
- * - Account-based data isolation enforced
+ * All routes in this module require authentication middleware
+ *
+ * @routes
+ * Feature-specific routes will be added here
  */
 
 import { Router } from 'express';
 
 const router = Router();
 
-// Internal routes will be added here as features are implemented
-// Example: Task management, user profile, settings
+// Feature routes will be added here
+// Example: router.use('/task', taskRoutes);
 
 export default router;

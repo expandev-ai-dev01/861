@@ -84,19 +84,16 @@ app.use((req: Request, res: Response) => {
   });
 });
 
-// Error handling middleware
+// Global error handler
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   console.error('Error:', error);
 
-  const statusCode = error.statusCode || 500;
-  const message = error.message || 'Internal server error';
-
-  res.status(statusCode).json({
+  res.status(error.status || 500).json({
     success: false,
     error: {
-      code: error.code || 'INTERNAL_ERROR',
-      message: message,
-      details: process.env.NODE_ENV === 'development' ? error.stack : undefined,
+      code: error.code || 'INTERNAL_SERVER_ERROR',
+      message: error.message || 'An unexpected error occurred',
+      ...(process.env.NODE_ENV === 'development' && { stack: error.stack }),
     },
     timestamp: new Date().toISOString(),
   });
@@ -113,7 +110,10 @@ process.on('SIGTERM', () => {
 
 // Server startup
 const server = app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
+  console.log(
+    `TODO List API Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`
+  );
+  console.log(`Health check available at: http://localhost:${PORT}/health`);
 });
 
 export default server;

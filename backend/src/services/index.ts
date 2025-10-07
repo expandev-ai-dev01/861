@@ -1,10 +1,11 @@
 /**
  * @summary
- * Central export point for all service modules.
- * Provides organized access to business logic services.
+ * Services exports aggregation.
+ * Centralizes all service exports for easy importing.
  *
  * @module services
- * @type service-exports
+ * @type exports
  */
 
 // Service exports will be added here as features are implemented
+// Example: export * from './task';

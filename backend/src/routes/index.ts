@@ -1,14 +1,14 @@
 /**
  * @summary
  * Main API router with version management.
- * Implements URL path versioning strategy for API evolution.
+ * Routes all API requests to appropriate version handlers.
  *
  * @module routes
  * @type router-configuration
  *
  * @versioning
  * - v1: Current stable API version
- * - Future versions can be added without breaking existing clients
+ * - Future versions can be added here
  */
 
 import { Router } from 'express';
@@ -16,7 +16,10 @@ import v1Routes from './v1';
 
 const router = Router();
 
-// Version 1 routes
+// Version 1 (current stable)
 router.use('/v1', v1Routes);
+
+// Future versions can be added here
+// router.use('/v2', v2Routes);
 
 export default router;

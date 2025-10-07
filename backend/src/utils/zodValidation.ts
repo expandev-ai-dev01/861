@@ -1,7 +1,7 @@
 /**
  * @summary
- * Zod validation utilities and custom validators.
- * Provides reusable validation schemas for common data types.
+ * Reusable Zod validation schemas and utilities.
+ * Provides common validation patterns for consistent data validation.
  *
  * @module utils/zodValidation
  * @type utility
@@ -9,79 +9,58 @@
 
 import { z } from 'zod';
 
-/**
- * @constant zString
- * @description Non-empty string validation
- */
-export const zString = z.string().min(1, 'stringRequired');
+// String validations
+export const zString = z.string().min(1, 'Field is required');
+export const zNullableString = z.string().nullable();
+export const zName = z
+  .string()
+  .min(1, 'Name is required')
+  .max(100, 'Name must be 100 characters or less');
+export const zDescription = z
+  .string()
+  .min(1, 'Description is required')
+  .max(500, 'Description must be 500 characters or less');
+export const zNullableDescription = z
+  .string()
+  .max(500, 'Description must be 500 characters or less')
+  .nullable();
 
-/**
- * @constant zNullableString
- * @description Optional string validation
- */
-export const zNullableString = z.string().nullable().optional();
+// Number validations
+export const zNumber = z.number();
+export const zPositiveNumber = z.number().positive('Value must be positive');
+export const zNonNegativeNumber = z.number().nonnegative('Value must be non-negative');
+export const zFK = z.number().int().positive('Invalid ID');
+export const zNullableFK = z.number().int().positive('Invalid ID').nullable();
 
-/**
- * @constant zName
- * @description Name field validation (max 100 characters)
- */
-export const zName = z.string().min(1, 'nameRequired').max(100, 'nameTooLong');
+// Boolean validations
+export const zBit = z.union([z.literal(0), z.literal(1)]);
+export const zBoolean = z.boolean();
 
-/**
- * @constant zDescription
- * @description Description field validation (max 500 characters)
- */
-export const zDescription = z.string().min(1, 'descriptionRequired').max(500, 'descriptionTooLong');
+// Date validations
+export const zDate = z.date();
+export const zDateString = z.string().datetime();
+export const zNullableDate = z.date().nullable();
+export const zNullableDateString = z.string().datetime().nullable();
 
-/**
- * @constant zNullableDescription
- * @description Optional description field validation
- */
-export const zNullableDescription = z.string().max(500, 'descriptionTooLong').nullable().optional();
+// Email validation
+export const zEmail = z.string().email('Invalid email format');
 
-/**
- * @constant zFK
- * @description Foreign key validation (positive integer)
- */
-export const zFK = z.coerce.number().int().positive('invalidForeignKey');
+// Coercion helpers
+export const zCoerceNumber = z.coerce.number();
+export const zCoercePositiveNumber = z.coerce.number().positive('Value must be positive');
+export const zCoerceFK = z.coerce.number().int().positive('Invalid ID');
 
-/**
- * @constant zNullableFK
- * @description Optional foreign key validation
- */
-export const zNullableFK = z.coerce
-  .number()
-  .int()
-  .positive('invalidForeignKey')
-  .nullable()
-  .optional();
+// Pagination schemas
+export const paginationSchema = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  pageSize: z.coerce.number().int().positive().max(100).default(50),
+});
 
-/**
- * @constant zBit
- * @description Boolean bit validation (0 or 1)
- */
-export const zBit = z.coerce.number().int().min(0).max(1, 'invalidBitValue');
+// Common parameter schemas
+export const idParamSchema = z.object({
+  id: zCoerceFK,
+});
 
-/**
- * @constant zDateString
- * @description Date string validation
- */
-export const zDateString = z.string().refine((val) => !isNaN(Date.parse(val)), 'invalidDateFormat');
-
-/**
- * @constant zEmail
- * @description Email validation
- */
-export const zEmail = z.string().email('invalidEmailFormat');
-
-/**
- * @constant zNumeric
- * @description Numeric value validation
- */
-export const zNumeric = z.coerce.number();
-
-/**
- * @constant zPositiveNumeric
- * @description Positive numeric value validation
- */
-export const zPositiveNumeric = z.coerce.number().positive('valueMustBePositive');
+export const accountParamSchema = z.object({
+  idAccount: zCoerceFK,
+});

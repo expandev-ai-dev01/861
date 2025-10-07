@@ -1,21 +1,25 @@
 /**
  * @summary
- * External API routes configuration for public endpoints.
- * Handles authentication, registration, and public data access.
+ * External (public) API routes configuration.
+ * Handles public endpoints that do not require authentication.
  *
  * @module routes/v1/externalRoutes
  * @type router-configuration
+ * @version 1.0.0
  *
- * @security
- * - No authentication required for these endpoints
- * - Rate limiting should be applied
+ * @routes
+ * - /public: General public endpoints
+ * - /security: Authentication and security endpoints (future)
  */
 
 import { Router } from 'express';
 
 const router = Router();
 
-// Public routes will be added here as features are implemented
-// Example: Authentication, password recovery, public information
+// Public endpoints will be added here
+// Example: router.use('/public', publicRoutes);
+
+// Security endpoints (login, register, etc.) will be added here
+// Example: router.use('/security', securityRoutes);
 
 export default router;

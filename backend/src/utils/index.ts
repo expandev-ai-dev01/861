@@ -1,11 +1,11 @@
 /**
  * @summary
- * Central export point for utility functions.
- * Provides organized access to validation, formatting,
- * and helper utilities.
+ * Utilities exports aggregation.
+ * Centralizes all utility exports for easy importing.
  *
  * @module utils
- * @type utility-exports
+ * @type exports
  */
 
+export * from './response';
 export * from './zodValidation';

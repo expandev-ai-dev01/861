@@ -1,10 +1,11 @@
 /**
  * @summary
- * Central export point for service instances.
- * Manages singleton instances and configurations.
+ * Service instances exports aggregation.
+ * Centralizes all service instance exports for easy importing.
  *
  * @module instances
- * @type instances-exports
+ * @type exports
  */
 
 // Service instances will be added here as needed
+// Example: export * from './database';

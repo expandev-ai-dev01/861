@@ -1,10 +1,11 @@
 /**
  * @summary
- * Central export point for application constants.
- * Provides organized access to configuration values and enums.
+ * Constants exports aggregation.
+ * Centralizes all constant exports for easy importing.
  *
  * @module constants
- * @type constants-exports
+ * @type exports
  */
 
-// Constants exports will be added here as needed
+// Constants will be added here as features are implemented
+// Example: export * from './task';
